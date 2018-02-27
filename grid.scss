@@ -72,6 +72,13 @@ $container-max-widths: (
         .image--right & {
             @include make-col-ready();
             @include float-right;
+            margin-left: $grid-gutter-width;
+            margin-bottom: ($grid-gutter-width / 2);
+            @include media-breakpoint-up(md) {
+                @include make-col(4);
+                padding-left: 0;
+                padding-right: 0;
+            }
         }
     }
 }
