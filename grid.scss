@@ -1,0 +1,112 @@
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1250px
+);
+
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+@import "node_modules/bootstrap/scss/reboot";
+@import "node_modules/bootstrap/scss/bootstrap-grid";
+// Optional includes
+@import "node_modules/bootstrap/scss/alert.scss";
+@import "node_modules/bootstrap/scss/type.scss";
+@import "node_modules/bootstrap/scss/utilities/borders.scss";
+// End optional includes
+
+
+@mixin col-margin($size, $side: 'left', $columns: $grid-columns) {
+    @if $side=='right' {
+        margin-right: - percentage($size / $columns);
+    }
+    @else {
+        margin-left: - percentage($size / $columns);
+    }
+}
+
+.container {
+    @include make-container();
+    @include make-container-max-widths();
+    margin-top: 20px;
+}
+
+.row {
+    margin-right: 0;
+    margin-left: 0;
+    >.col,
+    >[class*="col-"] {
+        padding-right: 0;
+        padding-left: 0;
+    }
+}
+
+.rte {
+    @include make-row();
+    display: block;
+    margin-left: 0;
+    margin-right: 0;
+    &__text {
+        padding-right: 0;
+        padding-left: 0;
+    }
+    &__img {
+        > * {
+            margin: 0;
+        }
+        img {
+            @include img-fluid();
+        }
+        .image--left & {
+            @include make-col-ready();
+            @include float-left;
+            margin-right: $grid-gutter-width;
+            margin-bottom: ($grid-gutter-width / 2);
+            @include media-breakpoint-up(md) {
+                @include make-col(4);
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+        .image--right & {
+            @include make-col-ready();
+            @include float-right;
+        }
+    }
+}
+
+.offset-image {
+    &--left {
+        &.offset-md-2 {
+            .rte__img {
+                @include make-col-ready();
+                @include float-left;
+                margin-right: $grid-gutter-width;
+                margin-bottom: ($grid-gutter-width / 2);
+                @include media-breakpoint-up(md) {
+                    @include make-col(6);
+                    @include col-margin(3);
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+            }
+        }
+    }
+    &--right {
+        &.offset-md-2 {
+            .rte__img {
+                @include make-col-ready();
+                @include float-right;
+                margin-left: $grid-gutter-width;
+                margin-bottom: ($grid-gutter-width / 2);
+                @include media-breakpoint-up(md) {
+                    @include make-col(6);
+                    @include col-margin(3, 'right');
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+            }
+        }
+    }
+}
